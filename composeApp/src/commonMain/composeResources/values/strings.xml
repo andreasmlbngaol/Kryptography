@@ -2,5 +2,12 @@
     <string name="app_name">Kryptography</string>
     <string name="plain_text_title">Plain Text</string>
     <string name="encrypt_button_text">Encrypt</string>
+    <string name="decrypt_button_text">Encrypt</string>
+
     <string name="cipher_text_title">Cipher Text</string>
+    <string name="affine_a_title">a Factor</string>
+    <string name="affine_b_title">b Factor</string>
+    <string name="affine_a_error_message">a must be number and coprime with 26</string>
+    <string name="affine_b_error_message">b must be number</string>
+
 </resources>

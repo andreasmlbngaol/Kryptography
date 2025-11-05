@@ -16,28 +16,24 @@ class CaesarViewModel: ViewModel() {
         viewModelScope.launch {
             _state.collect { current ->
                 val shouldEnable = current.plainText.isNotEmpty() && current.plainKey in 0..25
-                if (current.encryptedButtonEnabled != shouldEnable) {
-                    _state.value = current.copy(encryptedButtonEnabled = shouldEnable)
+                if (current.encryptButtonEnabled != shouldEnable) {
+                    _state.value = current.copy(encryptButtonEnabled = shouldEnable)
                 }
             }
         }
     }
 
     fun selectMenu(index: Int) {
-        viewModelScope.launch {
-            _state.value = _state.value.copy(
-                selectedMenuIndex = index
-            )
-        }
+        _state.value = _state.value.copy(
+            selectedMenuIndex = index
+        )
     }
 
     fun changePlainText(text: String) {
-        viewModelScope.launch {
-            if(text.isEmpty() || text.isAlphabetWithSpace()) {
-                _state.value = _state.value.copy(
-                    plainText = text.uppercase()
-                )
-            }
+        if(text.isEmpty() || text.isAlphabetWithSpace()) {
+            _state.value = _state.value.copy(
+                plainText = text.uppercase()
+            )
         }
     }
 

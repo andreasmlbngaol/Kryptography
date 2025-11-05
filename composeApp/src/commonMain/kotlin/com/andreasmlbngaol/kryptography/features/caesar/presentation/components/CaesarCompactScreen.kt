@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.andreasmlbngaol.kryptography.core.domain.AppBarType
+import com.andreasmlbngaol.kryptography.core.domain.EncodingTable
 import com.andreasmlbngaol.kryptography.core.presentation.BackAppBar
 import com.andreasmlbngaol.kryptography.core.presentation.RoundedOutlinedTextField
 import com.andreasmlbngaol.kryptography.features.caesar.data.menuItems
@@ -52,7 +52,6 @@ fun CaesarCompactScreen(
         topBar = {
             BackAppBar(
                 title = "Caesar Cipher",
-                type = AppBarType.Center,
                 onBack = onBack
             )
         },
@@ -129,7 +128,7 @@ fun CaesarCompactScreen(
 
             // === ENCRYPT BUTTON ===
             Button(
-                enabled = state.encryptedButtonEnabled,
+                enabled = state.encryptButtonEnabled,
                 onClick = { viewModel.encryptText() },
                 modifier = Modifier.fillMaxWidth()
             ) {

@@ -202,7 +202,7 @@ fun CaesarExpandedScreen(
                 }
 
                 Button(
-                    enabled = state.encryptedButtonEnabled,
+                    enabled = state.encryptButtonEnabled,
                     onClick = {
                         viewModel.encryptText()
                     },

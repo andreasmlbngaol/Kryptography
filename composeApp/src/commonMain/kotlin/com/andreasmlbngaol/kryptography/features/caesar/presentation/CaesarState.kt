@@ -6,7 +6,7 @@ data class CaesarState(
     val plainText: String = "",
     val plainKey: Int = 0,
     val encryptedText: String = "",
-    val encryptedButtonEnabled: Boolean = false,
+    val encryptButtonEnabled: Boolean = false,
 
     val cipherText: String = "",
     val cipherKey: Int = 0,

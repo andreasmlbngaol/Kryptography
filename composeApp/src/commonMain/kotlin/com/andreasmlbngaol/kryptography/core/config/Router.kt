@@ -9,8 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.andreasmlbngaol.kryptography.core.data.AffineNavKey
 import com.andreasmlbngaol.kryptography.core.data.CaesarNavKey
+import com.andreasmlbngaol.kryptography.core.data.DiagonalNavKey
 import com.andreasmlbngaol.kryptography.core.data.HomeNavKey
+import com.andreasmlbngaol.kryptography.core.data.HomophonicNavKey
+import com.andreasmlbngaol.kryptography.core.data.PlayfairNavKey
+import com.andreasmlbngaol.kryptography.core.data.SpiralNavKey
+import com.andreasmlbngaol.kryptography.core.data.VigenereNavKey
+import com.andreasmlbngaol.kryptography.features.affine.presentation.AffineScreen
 import com.andreasmlbngaol.kryptography.features.caesar.presentation.CaesarScreen
 import com.andreasmlbngaol.kryptography.features.home.presentation.HomeScreen
 
@@ -49,5 +56,21 @@ fun Router() {
                 onBack = onBack
             )
         }
+
+        composable<SpiralNavKey> {}
+
+        composable<DiagonalNavKey> {}
+
+        composable<AffineNavKey> {
+            AffineScreen(
+                onBack = onBack
+            )
+        }
+
+        composable<VigenereNavKey> {}
+
+        composable<HomophonicNavKey> {}
+
+        composable<PlayfairNavKey> {}
     }
 }
