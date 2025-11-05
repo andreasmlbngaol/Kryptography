@@ -4,7 +4,11 @@ name: Build and Deploy to VPS
 
 on:
   push:
-    branches:- master  # Atau 'main' jika itu adalah branch utama Anda
+    branches:
+      - master  # Atau 'main' jika itu adalah branch utama Anda
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
 
 jobs:
   build-and-deploy:
