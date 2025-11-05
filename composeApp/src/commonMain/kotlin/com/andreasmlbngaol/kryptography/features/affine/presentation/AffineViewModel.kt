@@ -16,8 +16,8 @@ class AffineViewModel: ViewModel() {
         viewModelScope.launch {
             _state.collect { current ->
                 _state.value = current.copy(
-                    cipherAIsError = (current.cipherA == null),
-                    cipherBIsError = (current.cipherB == null),
+                    cipherAIsError = (current.cipherA == null) xor (current.cipherAAsString.isEmpty()),
+                    cipherBIsError = (current.cipherB == null) xor (current.cipherBAsString.isEmpty()),
                     cipherAInverse = current.cipherA?.modInverse(26)
                 )
 

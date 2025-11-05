@@ -1,15 +1,13 @@
 package com.andreasmlbngaol.kryptography.features.affine.presentation.components.compact
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +23,6 @@ import com.andreasmlbngaol.kryptography.resources.affine_a_title
 import com.andreasmlbngaol.kryptography.resources.affine_b_error_message
 import com.andreasmlbngaol.kryptography.resources.affine_b_title
 import com.andreasmlbngaol.kryptography.resources.cipher_text_title
-import com.andreasmlbngaol.kryptography.resources.decrypt_button_text
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -85,52 +82,60 @@ fun AffineCompactDecrypt(
             )
         }
 
-        Button(
-            enabled = state.decryptButtonEnabled,
-            onClick = onDecryptText,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(Res.string.decrypt_button_text)
-            )
-        }
+//        Button(
+//            enabled = state.decryptButtonEnabled,
+//            onClick = onDecryptText,
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text(
+//                text = stringResource(Res.string.decrypt_button_text)
+//            )
+//        }
 
-        Column(
-            modifier = Modifier
-                .align(Alignment.Start),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+        AnimatedVisibility(
+            !state.cipherAIsError
+                    && state.cipherA != null
+                    && !state.cipherBIsError
+                    && state.cipherB != null
+                    && state.cipherText.isNotEmpty()
         ) {
-            Text(
-                text = "(${state.cipherA})^-1 = ${state.cipherAInverse.toString()}",
-                style = MaterialTheme.typography.titleLarge
-            )
-            val decrypted = state.cipherText.map { char ->
-                val charIndex = encodingTable.data.indexOf(char)
-                var tempRes: Int? = null
-                var res: Int? = null
-                if (state.cipherAInverse != null && state.cipherB != null) {
-                    tempRes = (state.cipherAInverse * (charIndex - state.cipherB))
-                    res = tempRes % 26
-                    if (res < 0) {
-                        res += 26
-                    }
-                }
-
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Start),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
                 Text(
-                    text = "$char: ${state.cipherAInverse} x ($charIndex - ${state.cipherB}) mod 26 = $tempRes mod 26 = $res (${
-                        encodingTable.data.getOrNull(
-                            res ?: -1
-                        )
-                    })"
+                    text = "(${state.cipherA})^-1 = ${state.cipherAInverse.toString()}",
+                    style = MaterialTheme.typography.titleLarge
                 )
-                encodingTable.data.getOrNull(
-                    res ?: -1
+                val decrypted = state.cipherText.map { char ->
+                    val charIndex = encodingTable.data.indexOf(char)
+                    var tempRes: Int? = null
+                    var res: Int? = null
+                    if (state.cipherAInverse != null && state.cipherB != null) {
+                        tempRes = (state.cipherAInverse * (charIndex - state.cipherB))
+                        res = tempRes % 26
+                        if (res < 0) {
+                            res += 26
+                        }
+                    }
+
+                    Text(
+                        text = "$char: ${state.cipherAInverse} x ($charIndex - ${state.cipherB}) mod 26 = $tempRes mod 26 = $res (${
+                            encodingTable.data.getOrNull(
+                                res ?: -1
+                            )
+                        })"
+                    )
+                    encodingTable.data.getOrNull(
+                        res ?: -1
+                    )
+                }.joinToString("")
+                Text(
+                    text = decrypted,
+                    style = MaterialTheme.typography.titleLarge
                 )
-            }.joinToString("")
-            Text(
-                text = decrypted,
-                style = MaterialTheme.typography.titleLarge
-            )
+            }
         }
     }
 }
